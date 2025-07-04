@@ -2,6 +2,9 @@
 
 - Create vite app
 - Configure Tailwind
+- Header
+- Login form
+- Sign Up form
 
 # Features:
 
