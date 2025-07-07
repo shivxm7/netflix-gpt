@@ -1,8 +1,8 @@
 import { useRef } from "react";
-import ai from "../utils/genai";
 import { API_OPTIONS } from "../utils/constant";
 import { useDispatch } from "react-redux";
-import { addGptMovies } from "../utils/gptSlice";
+import ai from "../gemini/genai";
+import { addGptMovies } from "../store/gptSlice";
 
 const GptSearchBar = () => {
   const searchText = useRef(null);
@@ -35,7 +35,6 @@ const GptSearchBar = () => {
     const geminiMovies = response?.text.split(",");
 
     if (!geminiMovies) return;
-    console.log(geminiMovies);
 
     // for each movie search TMDB APi
 

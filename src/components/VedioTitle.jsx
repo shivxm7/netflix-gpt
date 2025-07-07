@@ -1,5 +1,3 @@
-import React from "react";
-
 const VedioTitle = ({ title, overview }) => {
   return (
     <div className="w-full aspect-video pt-[22%] md:pt-[15%] pl-4 md:pl-12 absolute text-white bg-gradient-to-r from-black">

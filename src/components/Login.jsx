@@ -6,10 +6,10 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import { auth } from "../utils/firebase";
 import { useDispatch } from "react-redux";
-import { addUser } from "../utils/userSlice";
 import { BG_IMAGE, USER_AVATAR } from "../utils/constant";
+import { addUser } from "../store/userSlice";
+import { auth } from "../firebase/firebase";
 
 const Login = () => {
   const [isSignIn, setisSignIn] = useState(true);
@@ -48,7 +48,8 @@ const Login = () => {
           })
             .then(() => {
               // Profile updated!
-              const { uid, displayName, email, photoURL } = user;
+              // console.log("USER_AVATAR", USER_AVATAR);
+              const { uid, displayName, email, photoURL } = auth.currentUser;
               dispatch(
                 addUser({
                   displayName: displayName,
@@ -57,6 +58,7 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
+              // console.log("USER_AVATAR", USER_AVATAR);
             })
             .catch((error) => {
               // An error occurred
@@ -79,7 +81,9 @@ const Login = () => {
       )
         .then((userCredential) => {
           // Signed in
-          const user = userCredential.user;
+          const { uid, email, displayName, photoURL } = userCredential.user;
+          dispatch(addUser({ uid, email, displayName, photoURL }));
+
           // console.log(user);
         })
         .catch((error) => {

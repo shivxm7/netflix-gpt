@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser, removeUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../utils/firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { LOGO } from "../utils/constant";
-import { toggleGptSearchView } from "../utils/gptSlice";
+import { addUser, removeUser } from "../store/userSlice";
+import { toggleGptSearchView } from "../store/gptSlice";
+import { auth } from "../firebase/firebase";
 
 const Header = () => {
   const user = useSelector((store) => store.user);

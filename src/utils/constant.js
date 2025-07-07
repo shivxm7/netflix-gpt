@@ -1,5 +1,5 @@
 const APP_LOGO = import.meta.env.VITE_APP_LOGO;
-const APP_USER = import.meta.env.VOTE_USER_AVATAR;
+const APP_USER = import.meta.env.VITE_USER_AVATAR;
 const APP_BG_IMAGE = import.meta.env.VITE_BG_IMAGE;
 const APP_MOVIE_API = import.meta.env.VITE_MOVIE_API;
 const TMDB_KEY = import.meta.env.VITE_TMDB_KEY;
