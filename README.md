@@ -34,7 +34,10 @@
 - Made the Browse Page amazing with tailwind Css
 - usePopularMovie custom HOOK
 - adding trending, recomended and upcoming section
--
+- Intergrated Gemini API
+- Fetching MOvies from Gemini API
+- Display MOvies in anoter browse Page
+- Making site resonsiveness
 
 # Features:
 
