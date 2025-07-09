@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { BG_IMAGE, USER_AVATAR } from "../utils/constant";
 import { addUser } from "../store/userSlice";
 import { auth } from "../firebase/firebase";
+import Footer from "./Footer";
 
 const Login = () => {
   const [isSignIn, setisSignIn] = useState(true);
@@ -135,7 +136,7 @@ const Login = () => {
         />
         <p className="pt-2 text-red-500">{errorMessage}</p>
         <button
-          className="my-1 py-3 md:mx-2 md:my-6 md:py-4 bg-red-700 text-white rounded-xs w-full cursor-pointer hover:bg-red-800"
+          className="my-1 py-3 md:mx-2 md:my-2 md:py-4 bg-red-700 text-white rounded-xs w-full cursor-pointer hover:bg-red-800"
           onClick={handleBtnClick}
         >
           {isSignIn ? "Sign In" : "Sign Up"}
@@ -167,6 +168,7 @@ const Login = () => {
           </>
         )}
       </form>
+      <Footer />
     </div>
   );
 };

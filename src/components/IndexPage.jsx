@@ -4,6 +4,7 @@ import { BG_IMAGE } from "../utils/constant";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleGetStarted } from "../store/getStartSlice";
 import Login from "./Login";
+import Footer from "./Footer";
 
 const IndexPage = () => {
   const dispatch = useDispatch();
@@ -44,6 +45,8 @@ const IndexPage = () => {
           </div>{" "}
         </>
       )}
+
+      <Footer />
     </div>
   );
 };
