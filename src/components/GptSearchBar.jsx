@@ -1,13 +1,14 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { API_OPTIONS } from "../utils/constant";
 import { useDispatch } from "react-redux";
 import ai from "../gemini/genai";
 import { addGptMovies } from "../store/gptSlice";
+import Spinner from "./Spinner";
 
 const GptSearchBar = () => {
+  const [isLoading, setisLoading] = useState(false);
   const searchText = useRef(null);
   const dispatch = useDispatch();
-
   const searchMovieTMDB = async (movie) => {
     const url =
       "https://api.themoviedb.org/3/search/movie?query=" +
@@ -22,6 +23,7 @@ const GptSearchBar = () => {
   };
 
   const handleGptSearchClick = async () => {
+    setisLoading(true);
     // Make API call to GPT API to get Movie Res
     const queryText =
       "Act as a movie recommendation system and suggest some movies for the query : " +
@@ -34,7 +36,10 @@ const GptSearchBar = () => {
 
     const geminiMovies = response?.text.split(",");
 
-    if (!geminiMovies) return;
+    if (!geminiMovies) {
+      setisLoading(false);
+      return;
+    }
 
     // for each movie search TMDB APi
 
@@ -46,31 +51,38 @@ const GptSearchBar = () => {
 
     // console.log(tmdbData);
 
+    setisLoading(false);
     dispatch(addGptMovies({ movieName: geminiMovies, movieResult: tmdbData }));
-
     // searchMovieTMDB("Sanam Teri Kasam");
   };
 
   return (
-    <div className="pt-[25%] md:pt-[10%] flex justify-center ">
-      <form
-        className="bg-black w-full md:mx-0 px-2 mx-4 md:w-1/2
+    <div className="pt-[25%] md:pt-[10%]">
+      {isLoading && (
+        <div className="absolute w-full bg-black/60 flex items-center justify-center z-50 ">
+          <Spinner />
+        </div>
+      )}
+      <div className="flex justify-center ">
+        <form
+          className="bg-black w-full md:mx-0 px-2 mx-4 md:w-1/2
         ' grid grid-cols-12 rounded-md"
-        onClick={(e) => e.preventDefault()}
-      >
-        <input
-          ref={searchText}
-          type="text"
-          className="p-2 m-2 md:p-4 md:m-4 rounded-sm bg-white col-span-10"
-          placeholder="what whould you like to watch today ?"
-        />
-        <button
-          className="mx-0 my-2 md:py-2 md:px-2 md:my-4 md:mx-2 bg-red-700 text-white text-sm md:text-lg rounded-md col-span-2 cursor-pointer hover:bg-red-500"
-          onClick={handleGptSearchClick}
+          onClick={(e) => e.preventDefault()}
         >
-          Search
-        </button>
-      </form>
+          <input
+            ref={searchText}
+            type="text"
+            className="p-2 m-2 md:p-4 md:m-4 rounded-sm bg-white col-span-10"
+            placeholder="what whould you like to watch today ?"
+          />
+          <button
+            className="mx-0 my-2 md:py-2 md:px-2 md:my-4 md:mx-2 bg-red-700 text-white text-sm md:text-lg rounded-md col-span-2 cursor-pointer hover:bg-red-500"
+            onClick={handleGptSearchClick}
+          >
+            Search
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

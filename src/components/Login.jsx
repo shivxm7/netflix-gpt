@@ -10,9 +10,9 @@ import { useDispatch } from "react-redux";
 import { BG_IMAGE, USER_AVATAR } from "../utils/constant";
 import { addUser } from "../store/userSlice";
 import { auth } from "../firebase/firebase";
-import Footer from "./Footer";
 
 const Login = () => {
+  const [loadingBtn, setloadingBtn] = useState(false);
   const [isSignIn, setisSignIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const toggleSignIn = () => setisSignIn(!isSignIn);
@@ -26,6 +26,7 @@ const Login = () => {
     const message = checkValidData(email.current.value, password.current.value);
     setErrorMessage(message);
     if (message) return;
+    setloadingBtn(true);
 
     if (!isSignIn) {
       // Sign up
@@ -108,8 +109,17 @@ const Login = () => {
           <button
             className="py-3 my-4 bg-red-700 hover:bg-red-800 w-full rounded"
             onClick={handleBtnClick}
+            disabled={loadingBtn ? true : false}
           >
-            {isSignIn ? "Sign In" : "Sign Up"}
+            {loadingBtn ? (
+              <div className="w-5 h-5 border-t m-[2px] ml-33 border-gray-300 border-solid rounded-full animate-spin"></div>
+            ) : isSignIn ? (
+              "Sign In"
+            ) : (
+              "Sign Up"
+            )}
+
+            {/* {isSignIn ? "Sign In" : "Sign Up"} */}
           </button>
 
           <p className="text-sm text-[#808080]">

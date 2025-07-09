@@ -11,7 +11,11 @@ const useNowPlayingMovies = () => {
   );
 
   const getNowPlayingMovies = async () => {
-    const data = await fetch(MOVIE_API + "now_playing?page=1", API_OPTIONS);
+    const data = await fetch(
+      MOVIE_API +
+        "discover/movie?with_original_language=hi&region=IN&sort_by=popularity.desc&page=1",
+      API_OPTIONS
+    );
     const json = await data.json();
 
     //console.log(json.results);

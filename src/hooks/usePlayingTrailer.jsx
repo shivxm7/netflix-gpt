@@ -9,7 +9,10 @@ const usePlayingTrailer = (id) => {
   const trailer_Vedio = useSelector((store) => store.movies.trailerVideo);
 
   const getMovieVedio = async () => {
-    const data = await fetch(MOVIE_API + id + "/videos", API_OPTIONS);
+    const data = await fetch(
+      MOVIE_API + "/movie/" + id + "/videos",
+      API_OPTIONS
+    );
     const json = await data.json();
 
     const filterData = json.results.filter((video) => video.type === "Trailer");

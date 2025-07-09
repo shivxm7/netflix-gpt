@@ -8,12 +8,16 @@ import useUpcomingMovies from "../hooks/useUpcomingMovies";
 import { useSelector } from "react-redux";
 import GptSearch from "./GptSearch";
 import Footer from "./Footer";
+import useNowPlayingHollywood from "../hooks/useNowPlayingHollywood";
+import useTopTvShowInIndia from "../hooks/useTopTvShowInIndia";
 
 const Browse = () => {
   const showGptSearchBtn = useSelector((store) => store.gpt.showGptSearch);
 
   useNowPlayingMovies();
   useUpcomingMovies();
+  useNowPlayingHollywood();
+  useTopTvShowInIndia();
   useTopRatedMovies();
   usePopularMovies();
 

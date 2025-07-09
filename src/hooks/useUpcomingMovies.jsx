@@ -9,7 +9,7 @@ const useUpcomingMovies = () => {
   const upcoming_Movies = useSelector((store) => store.movies.upcomingMovies);
 
   const getUpcomingMovies = async () => {
-    const data = await fetch(MOVIE_API + "upcoming?page=1", API_OPTIONS);
+    const data = await fetch(MOVIE_API + "movie/upcoming?page=1", API_OPTIONS);
     const json = await data.json();
 
     //console.log(json.results);

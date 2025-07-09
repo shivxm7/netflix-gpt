@@ -1,13 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { LOGO } from "../utils/constant";
 
 const Footer = () => {
   return (
     <div className="bg-black text-white py-6">
       <div>
-        <div className="pt-10 pb-3 flex justify-between items-center mx-40 mb-4">
+        <div className="pt-10 pb-3 flex justify-between items-center ml-15 mr-40 mb-4">
           <div>
-            <img src="logo.png" alt="Logo" />
+            <img className="w-30 md:w-80 h-20 " src={LOGO} alt="logo" />
           </div>
           <div className="text-[#ababab]">
             <Link className="px-4 hover:underline" to="/about">
