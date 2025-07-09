@@ -14,6 +14,11 @@ const MovieList = ({ title, movies }) => {
             return <MovieCard key={movie.id} movie={movie} />;
           })}
         </div>
+
+        {/* Static Arrow on Right Side */}
+        {/* <div className="absolute right-2 top-1/2 transform -translate-y-1/2 z-10 bg-black bg-opacity-50 p-2 rounded-full hover:scale-110 transition">
+          <span className="text-white text-4xl font-bold">&#8250;</span>
+        </div> */}
       </div>
     </div>
   );
