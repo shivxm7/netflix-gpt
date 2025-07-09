@@ -1,8 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import { IMG_CDN } from "../utils/constant";
 import { PlayCircle, PlusCircle, ThumbsUp } from "lucide-react";
 const MovieCard = ({ movie }) => {
-  const { poster_path } = movie;
+  const navigate = useNavigate();
+  const { poster_path, id } = movie;
   if (!poster_path) return;
+
+  const handleMoviePlay = () => {
+    navigate(`/watch/${id}`);
+  };
+
   return (
     <div className="relative group h-58 w-36 md:w-42 px-4 cursor-pointer">
       {/* Base Poster */}
@@ -19,7 +26,7 @@ const MovieCard = ({ movie }) => {
           className="rounded-lg w-full h-26 object-cover"
         />
         <div className="flex gap-4 py-3 text-xl">
-          <button className="cursor-pointer">
+          <button onClick={handleMoviePlay} className="cursor-pointer">
             <PlayCircle className="w-7 h-7 cursor-pointer hover:text-red-500" />
           </button>
           <button>
