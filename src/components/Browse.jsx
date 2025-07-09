@@ -7,6 +7,7 @@ import useTopRatedMovies from "../hooks/useTopRatedMovies";
 import useUpcomingMovies from "../hooks/useUpcomingMovies";
 import { useSelector } from "react-redux";
 import GptSearch from "./GptSearch";
+import Footer from "./Footer";
 
 const Browse = () => {
   const showGptSearchBtn = useSelector((store) => store.gpt.showGptSearch);
@@ -35,6 +36,7 @@ const Browse = () => {
             - MoviesList * n
               - cards * n 
       */}
+      <Footer />
     </div>
   );
 };

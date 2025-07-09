@@ -15,9 +15,7 @@ import Footer from "./Footer";
 const Login = () => {
   const [isSignIn, setisSignIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
-  const toggleSignIn = () => {
-    setisSignIn(!isSignIn);
-  };
+  const toggleSignIn = () => setisSignIn(!isSignIn);
 
   const email = useRef(null);
   const password = useRef(null);
@@ -25,150 +23,109 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const handleBtnClick = () => {
-    // validate the form
     const message = checkValidData(email.current.value, password.current.value);
     setErrorMessage(message);
-
-    // if any string got then credentials is invalid
     if (message) return;
 
-    // sign in / sign up
     if (!isSignIn) {
-      // create user account
+      // Sign up
       createUserWithEmailAndPassword(
         auth,
         email.current.value,
         password.current.value
       )
         .then((userCredential) => {
-          // Signed up
           const user = userCredential.user;
           updateProfile(auth.currentUser, {
             displayName: name.current.value,
             photoURL: USER_AVATAR,
-          })
-            .then(() => {
-              // Profile updated!
-              // console.log("USER_AVATAR", USER_AVATAR);
-              const { uid, displayName, email, photoURL } = auth.currentUser;
-              dispatch(
-                addUser({
-                  displayName: displayName,
-                  email: email,
-                  uid: uid,
-                  photoURL: photoURL,
-                })
-              );
-              // console.log("USER_AVATAR", USER_AVATAR);
-            })
-            .catch((error) => {
-              // An error occurred
-              const errorCode = error.code;
-              const errorMessage = error.message;
-              setErrorMessage(errorCode + " " + errorMessage);
-            });
+          }).then(() => {
+            const { uid, displayName, email, photoURL } = auth.currentUser;
+            dispatch(addUser({ displayName, email, uid, photoURL }));
+          });
         })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setErrorMessage(errorCode + " " + errorMessage);
-        });
+        .catch((error) => setErrorMessage(error.code + " " + error.message));
     } else {
-      // sign in
+      // Sign in
       signInWithEmailAndPassword(
         auth,
         email.current.value,
         password.current.value
       )
         .then((userCredential) => {
-          // Signed in
           const { uid, email, displayName, photoURL } = userCredential.user;
           dispatch(addUser({ uid, email, displayName, photoURL }));
-
-          // console.log(user);
         })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setErrorMessage(errorCode + " " + errorMessage);
-        });
+        .catch((error) => setErrorMessage(error.code + " " + error.message));
     }
   };
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Header />
-      <div className="absolute">
-        <img
-          className="h-screen md:w-full md:h-full object-cover "
-          src={BG_IMAGE}
-          alt="body"
-        />
-        <div className="absolute inset-0 bg-black opacity-60"></div>
-      </div>
-      <form
-        onSubmit={(e) => e.preventDefault()}
-        className="bg-black/50 absolute py-4 px-2 md:p-12 w-10/12 md:w-3/12 my-36 mx-auto right-0 left-0 text-white"
-      >
-        <h1 className="text-2xl md:text-3xl text-white font-medium py-2 md:py-4">
-          {" "}
-          {isSignIn ? "Sign In" : "Sign Up"}
-        </h1>
-        {!isSignIn && (
-          <input
-            ref={name}
-            type="text"
-            placeholder="Full Name"
-            className="mt-2 p-2 md:m-2 md:p-3 w-full text-white bg-[#333333] rounded-xs"
-          />
-        )}
-        <input
-          ref={email}
-          type="email"
-          placeholder="Email"
-          className="mt-2 p-2 md:m-2 md:p-3 w-full text-white bg-[#333333] rounded-xs"
-        />
-        <input
-          ref={password}
-          type="password"
-          placeholder="Password"
-          className="p-2 my-2 md:m-2 md:p-3 w-full bg-[#333333] rounded-xs text-white"
-        />
-        <p className="pt-2 text-red-500">{errorMessage}</p>
-        <button
-          className="my-1 py-3 md:mx-2 md:my-2 md:py-4 bg-red-700 text-white rounded-xs w-full cursor-pointer hover:bg-red-800"
-          onClick={handleBtnClick}
-        >
-          {isSignIn ? "Sign In" : "Sign Up"}
-        </button>
 
-        {isSignIn ? (
-          <>
-            <p className="mt-2 text-[#808080] text-sm md:p-2 inline-block cursor-pointer">
-              New to Prompt Flix?
-            </p>
-            <p
+      {/* Background Section */}
+      <div className="relative flex-1">
+        <img
+          className="absolute inset-0 h-full w-full object-cover -z-10"
+          src={BG_IMAGE}
+          alt="background"
+        />
+        <div className="absolute inset-0 bg-black opacity-60 -z-10"></div>
+
+        {/* Form */}
+        <form
+          onSubmit={(e) => e.preventDefault()}
+          className="bg-black/50 py-4 px-2 md:p-12 w-10/12 md:w-3/12 mx-auto mt-36 text-white"
+        >
+          <h1 className="text-3xl font-medium py-4">
+            {isSignIn ? "Sign In" : "Sign Up"}
+          </h1>
+
+          {!isSignIn && (
+            <input
+              ref={name}
+              type="text"
+              placeholder="Full Name"
+              className="p-3 my-2 w-full bg-[#333333] rounded text-white"
+            />
+          )}
+          <input
+            ref={email}
+            type="email"
+            placeholder="Email"
+            className="p-3 my-2 w-full bg-[#333333] rounded text-white"
+          />
+          <input
+            ref={password}
+            type="password"
+            placeholder="Password"
+            className="p-3 my-2 w-full bg-[#333333] rounded text-white"
+          />
+
+          <p className="pt-2 text-red-500 text-sm">{errorMessage}</p>
+
+          <button
+            className="py-3 my-4 bg-red-700 hover:bg-red-800 w-full rounded"
+            onClick={handleBtnClick}
+          >
+            {isSignIn ? "Sign In" : "Sign Up"}
+          </button>
+
+          <p className="text-sm text-[#808080]">
+            {isSignIn ? "New to Prompt Flix?" : "Already have an account?"}{" "}
+            <span
               onClick={toggleSignIn}
-              className="inline-block text-sm hover:underline cursor-pointer"
+              className="text-white hover:underline cursor-pointer"
             >
-              Sign up now
-            </p>
-          </>
-        ) : (
-          <>
-            <p className="mt-2 text-[#808080] text-sm md:p-2 inline-block cursor-pointer">
-              Already have an account? ?
-            </p>
-            <p
-              onClick={toggleSignIn}
-              className="inline-block text-sm hover:underline cursor-pointer"
-            >
-              Sign in Now
-            </p>
-          </>
-        )}
-      </form>
-      <Footer />
+              {isSignIn ? "Sign up now" : "Sign in now"}
+            </span>
+          </p>
+        </form>
+      </div>
+
+      {/* Footer */}
+      {/* <Footer /> */}
     </div>
   );
 };
