@@ -103,12 +103,13 @@ const Login = () => {
           src={BG_IMAGE}
           alt="body"
         />
+        <div className="absolute inset-0 bg-black opacity-60"></div>
       </div>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="bg-black/80 absolute py-4 px-2 md:p-12 w-10/12 md:w-3/12 my-36 mx-auto right-0 left-0 text-white"
+        className="bg-black/50 absolute py-4 px-2 md:p-12 w-10/12 md:w-3/12 my-36 mx-auto right-0 left-0 text-white"
       >
-        <h1 className="text-2xl md:text-3xl text-white font-bold py-2 md:py-4">
+        <h1 className="text-2xl md:text-3xl text-white font-medium py-2 md:py-4">
           {" "}
           {isSignIn ? "Sign In" : "Sign Up"}
         </h1>
@@ -117,20 +118,20 @@ const Login = () => {
             ref={name}
             type="text"
             placeholder="Full Name"
-            className="mt-2 p-2 md:m-2 md:p-3 w-full text-white bg-gray-500 rounded-xs"
+            className="mt-2 p-2 md:m-2 md:p-3 w-full text-white bg-[#333333] rounded-xs"
           />
         )}
         <input
           ref={email}
           type="email"
           placeholder="Email"
-          className="mt-2 p-2 md:m-2 md:p-3 w-full text-white bg-gray-500 rounded-xs"
+          className="mt-2 p-2 md:m-2 md:p-3 w-full text-white bg-[#333333] rounded-xs"
         />
         <input
           ref={password}
           type="password"
           placeholder="Password"
-          className="p-2 my-2 md:m-2 md:p-3 w-full bg-gray-500 rounded-xs text-white"
+          className="p-2 my-2 md:m-2 md:p-3 w-full bg-[#333333] rounded-xs text-white"
         />
         <p className="pt-2 text-red-500">{errorMessage}</p>
         <button
@@ -140,11 +141,31 @@ const Login = () => {
           {isSignIn ? "Sign In" : "Sign Up"}
         </button>
 
-        <p className="mt-2 md:p-2 cursor-pointer" onClick={toggleSignIn}>
-          {isSignIn
-            ? "New to Netflix? Sign Up now"
-            : "Already Register? Sign In Now"}
-        </p>
+        {isSignIn ? (
+          <>
+            <p className="mt-2 text-[#808080] text-sm md:p-2 inline-block cursor-pointer">
+              New to Prompt Flix?
+            </p>
+            <p
+              onClick={toggleSignIn}
+              className="inline-block text-sm hover:underline cursor-pointer"
+            >
+              Sign up now
+            </p>
+          </>
+        ) : (
+          <>
+            <p className="mt-2 text-[#808080] text-sm md:p-2 inline-block cursor-pointer">
+              Already have an account? ?
+            </p>
+            <p
+              onClick={toggleSignIn}
+              className="inline-block text-sm hover:underline cursor-pointer"
+            >
+              Sign in Now
+            </p>
+          </>
+        )}
       </form>
     </div>
   );
