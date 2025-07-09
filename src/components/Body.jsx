@@ -2,6 +2,7 @@ import Login from "./Login";
 import Browse from "./Browse";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import IndexPage from "./IndexPage";
+import { NotFound } from "./NotFound";
 
 const Body = () => {
   const appRouter = createBrowserRouter([
@@ -16,6 +17,10 @@ const Body = () => {
     {
       path: "/browse",
       element: <Browse />,
+    },
+    {
+      path: "*",
+      element: <NotFound />,
     },
   ]);
 
