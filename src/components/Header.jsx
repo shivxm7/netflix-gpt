@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { LOGO } from "../utils/constant";
 import { addUser, removeUser } from "../store/userSlice";
@@ -69,6 +69,23 @@ const Header = () => {
         src={LOGO}
         alt="logo"
       />
+
+      <div className="text-white ">
+        {" "}
+        <Link className="mx-4 hover:text-[#ababab]" to={"/"}>
+          Home
+        </Link>
+        <Link className="mx-4 hover:text-[#ababab]" to={"/"}>
+          TV Shows
+        </Link>
+        <Link className="mx-4 hover:text-[#ababab]" to={"/"}>
+          Movies
+        </Link>
+        <Link className="mx-4 hover:text-[#ababab]" to={"/"}>
+          New & Popular
+        </Link>
+      </div>
+
       {user && (
         <div className="flex items-center m-2">
           {displaySearch && (
