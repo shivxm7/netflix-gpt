@@ -23,15 +23,23 @@ const IndexPage = () => {
           {" "}
           <Header />
           <div className="relative ">
-            <img src={BG_IMAGE} className="w-full h-auto object-cover" alt="" />
+            <img
+              src={BG_IMAGE}
+              className="h-screen w-full object-cover"
+              alt=""
+            />
             <div className="absolute inset-0 bg-black opacity-60"></div>
             <div className="absolute inset-0 text-white flex justify-center items-center flex-col">
-              <h1 className="text-5xl font-bold my-2">
+              <h1 className="text-3xl font-semibold my-0.5 text-center md:text-5xl md:font-bold md:my-2">
                 The biggest Indian hits. Ready to watch here{" "}
               </h1>
-              <h1 className="text-5xl font-bold my-2">from ₹ 149.</h1>
-              <p className="text-2xl my-2">Join Today. Cancel Anytime.</p>
-              <p className="text-2xl my-2">
+              <h1 className="text-3xl font-semibold my-0.5 text-center md:text-5xl md:font-bold md:my-2">
+                from ₹ 149.
+              </h1>
+              <p className="text-lg mt-1.5 md:text-2xl md:my-2">
+                Join Today. Cancel Anytime.
+              </p>
+              <p className="text-lg mt-1.5 text-center md:text-2xl md:my-2">
                 Ready to watch? Get Started to create or restart your
                 membership.
               </p>
